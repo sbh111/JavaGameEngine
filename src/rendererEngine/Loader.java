@@ -31,7 +31,7 @@ public class Loader {
     }
 
 
-    private void storeDataInAttribList(int attribNumber, float[] data) {
+    private void storeDataInAttribList(int attribNumber, int coordSize, float[] data) {
         int vboID = GL15.glGenBuffers();
         vbos.add(vboID);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboID);
@@ -40,7 +40,7 @@ public class Loader {
         GL20.glVertexAttribPointer
                 (
                         attribNumber,
-                        3,
+                        coordSize,
                         GL11.GL_FLOAT,
                         false,
                         0,
@@ -91,11 +91,11 @@ public class Loader {
         return  textureID;
     }
 
-    public RawModel loadToVao(float[] positions, int[] indices) {
+    public RawModel loadToVao(float[] positions, float[] texCoords, int[] indices) {
         int vaoID = createVao();
         bindIndexBuffer(indices);
-        int slot = 0;
-        storeDataInAttribList(slot, positions);
+        storeDataInAttribList(0, 3, positions);
+        storeDataInAttribList(1, 2, texCoords);
         unbindVao();
         return new RawModel(vaoID, indices.length);
     }
