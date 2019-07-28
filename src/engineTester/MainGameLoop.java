@@ -1,8 +1,11 @@
 package engineTester;
 
+import models.RawModel;
+import models.TexturedModel;
 import org.lwjgl.opengl.Display;
 import rendererEngine.*;
 import shaders.StaticShader;
+import textures.ModelTexture;
 
 public class MainGameLoop
 {
@@ -28,6 +31,8 @@ public class MainGameLoop
                 };
 
         RawModel model = loader.loadToVao(vertices, indices);
+        ModelTexture texture = new ModelTexture(loader.loadTexture("linux-icon"));
+        TexturedModel texturedModel = new TexturedModel(model, texture);
 
         //game loop
         while(!Display.isCloseRequested())
@@ -35,7 +40,7 @@ public class MainGameLoop
             renderer.prepare();
 
             shader.start();
-            renderer.render(model);
+            renderer.render(texturedModel);
             shader.stop();
 
             DisplayManager.updateDisplay();
