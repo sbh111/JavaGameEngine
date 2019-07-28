@@ -2,6 +2,7 @@ package engineTester;
 
 import org.lwjgl.opengl.Display;
 import rendererEngine.*;
+import shaders.StaticShader;
 
 public class MainGameLoop
 {
@@ -11,6 +12,7 @@ public class MainGameLoop
         DisplayManager.createDisplay();
         Loader loader = new Loader();
         Renderer renderer = new Renderer();
+        StaticShader shader = new StaticShader();
 
         float []vertices =
                 {
@@ -32,13 +34,18 @@ public class MainGameLoop
         {
             renderer.prepare();
 
+            shader.start();
             renderer.render(model);
+            shader.stop();
 
             DisplayManager.updateDisplay();
 
 
         }//end gameLoop
 
+
+        //cleanUp
+        shader.cleanUp();
         loader.cleanUp();
         DisplayManager.closeDisplay();
     }//end main
