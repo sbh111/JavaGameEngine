@@ -51,6 +51,8 @@ public class MainGameLoop
         //game loop
         while(!Display.isCloseRequested())
         {
+            entity.increasePosition(0.002f, 0, 0);
+            entity.increaseRotation(0.02f, 1.f, 0.02f);
             renderer.prepare();
 
             shader.start();
@@ -58,8 +60,6 @@ public class MainGameLoop
             shader.stop();
 
             DisplayManager.updateDisplay();
-
-
         }//end gameLoop
 
 
