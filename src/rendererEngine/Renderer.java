@@ -3,15 +3,44 @@ package rendererEngine;
 import entities.Entity;
 import models.RawModel;
 import models.TexturedModel;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL13;
-import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GL30;
+import org.lwjgl.opengl.*;
 import org.lwjgl.util.vector.Matrix4f;
 import shaders.StaticShader;
 import toolbox.Maths;
 
 public class Renderer {
+
+
+    //private////////////////////////////////////////////////////////////////////
+    private static final float FOV = 70.f;
+    private static final float NEAR_PLANE = 0.1f;
+    private static final float FAR_PLANE = 1000f;
+
+    private Matrix4f projectionMatrix;
+
+
+    private void createProjectionMatrix(){
+        float aspectRatio = (float) Display.getWidth() / (float)Display.getHeight();
+        float yScale = (1.f / (float)Math.tan(Math.toRadians(FOV / 2.f))) * aspectRatio;
+        float xScale = yScale / aspectRatio;
+        float frustrumLength = FAR_PLANE - NEAR_PLANE;
+
+        projectionMatrix = new Matrix4f();
+        projectionMatrix.m00 = xScale;
+        projectionMatrix.m11 =  yScale;
+        projectionMatrix.m22 = -((FAR_PLANE + NEAR_PLANE) / frustrumLength);
+        projectionMatrix.m23 = -1;
+        projectionMatrix.m32 = -((2 * NEAR_PLANE * FAR_PLANE) / frustrumLength);
+        projectionMatrix.m33 = 0;
+    }
+
+    //public////////////////////////////////////////////////////////////////////
+    public Renderer(StaticShader shader){
+        createProjectionMatrix();
+        shader.start();
+        shader.loadProjectionMatrix(projectionMatrix);
+        shader.stop();
+    }
 
     public void prepare()
     {

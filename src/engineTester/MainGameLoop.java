@@ -16,8 +16,9 @@ public class MainGameLoop
     {
         DisplayManager.createDisplay();
         Loader loader = new Loader();
-        Renderer renderer = new Renderer();
         StaticShader shader = new StaticShader();
+        Renderer renderer = new Renderer(shader);
+
 
         float []vertices = {
                 -.5f,   .5f, 0f, //v0
@@ -41,7 +42,7 @@ public class MainGameLoop
         TexturedModel texturedModel = new TexturedModel(model, texture);
         Entity entity = new Entity(
                 texturedModel,
-                new Vector3f(-1, 0, 0),
+                new Vector3f(0, 0, -1),
                 0,
                 0,
                 0,
@@ -51,7 +52,7 @@ public class MainGameLoop
         //game loop
         while(!Display.isCloseRequested())
         {
-            entity.increasePosition(0.002f, 0, 0);
+            entity.increasePosition(0.002f, 0, -0.05f);
             entity.increaseRotation(0.02f, 1.f, 0.02f);
             renderer.prepare();
 
