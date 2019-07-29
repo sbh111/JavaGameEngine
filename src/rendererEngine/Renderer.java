@@ -21,7 +21,7 @@ public class Renderer {
 
     private void createProjectionMatrix(){
         float aspectRatio = (float) Display.getWidth() / (float)Display.getHeight();
-        float yScale = (1.f / (float)Math.tan(Math.toRadians(FOV / 2.f))) * aspectRatio;
+        float yScale = (1.f / (float)Math.tan(Math.toRadians(FOV / 2.f)));
         float xScale = yScale / aspectRatio;
         float frustrumLength = FAR_PLANE - NEAR_PLANE;
 
@@ -45,8 +45,9 @@ public class Renderer {
     public void prepare()
     {
         //called once every frame to prepare opengl
-        GL11.glClearColor(1, 0, 0, 1);
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+        GL11.glClearColor(.6f, .2f, .1f, 1);
     }
 
     public void render(Entity entity, StaticShader shader)

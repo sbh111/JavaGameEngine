@@ -20,6 +20,7 @@ public class DisplayManager
             Display.create(new PixelFormat(), attribs);
             Display.setTitle("Test");
             Display.setVSyncEnabled(true);
+
         } catch (LWJGLException e) {
             e.printStackTrace();
         }

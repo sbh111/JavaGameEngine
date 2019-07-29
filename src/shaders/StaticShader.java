@@ -1,6 +1,8 @@
 package shaders;
 
+import entities.Camera;
 import org.lwjgl.util.vector.Matrix4f;
+import toolbox.Maths;
 
 public class StaticShader extends ShaderProgram {
 
@@ -9,6 +11,7 @@ public class StaticShader extends ShaderProgram {
     private static final String FRAGMENT_FILE = "src/shaders/fragmentShader.txt";
     private int location_transformationMatrix;
     private int location_projectionMatrix;
+    private int location_viewMatrix;
 
 
     //protected//////////////////////////////////////////////////////////////
@@ -22,6 +25,7 @@ public class StaticShader extends ShaderProgram {
     protected void getAllUniformLocations() {
         location_transformationMatrix = super.getUniformLocation("transformationMatrix");
         location_projectionMatrix = super.getUniformLocation("projectionMatrix");
+        location_viewMatrix = super.getUniformLocation("viewMatrix");
 
     }
 
@@ -36,6 +40,11 @@ public class StaticShader extends ShaderProgram {
 
     public void loadProjectionMatrix(Matrix4f mat){
         super.loadMatrix(location_projectionMatrix, mat);
+    }
+
+    public void loadViewMatrix(Camera camera){
+        Matrix4f viewMatrix = Maths.createViewMatrix(camera);
+        super.loadMatrix(location_viewMatrix, viewMatrix);
     }
 
 
