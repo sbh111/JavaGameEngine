@@ -6,8 +6,11 @@ import entities.Light;
 import models.RawModel;
 import models.TexturedModel;
 import org.lwjgl.opengl.Display;
-import org.lwjgl.util.vector.Vector3f;
-import rendererEngine.*;
+import org.lwjgl.util.vector.Vector3f;;
+import rendererEngine.DisplayManager;
+import rendererEngine.Loader;
+import rendererEngine.ObjLoader;
+import rendererEngine.Renderer;
 import shaders.StaticShader;
 import textures.ModelTexture;
 
