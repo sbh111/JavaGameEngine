@@ -91,11 +91,12 @@ public class Loader {
         return  textureID;
     }
 
-    public RawModel loadToVao(float[] positions, float[] texCoords, int[] indices) {
+    public RawModel loadToVao(float[] positions, float[] texCoords, float[] normals, int[] indices) {
         int vaoID = createVao();
         bindIndexBuffer(indices);
         storeDataInAttribList(0, 3, positions);
         storeDataInAttribList(1, 2, texCoords);
+        storeDataInAttribList(2, 3, normals);
         unbindVao();
         return new RawModel(vaoID, indices.length);
     }

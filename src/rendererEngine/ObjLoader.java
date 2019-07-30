@@ -155,7 +155,7 @@ public class ObjLoader {
             indicesArr[i] = indices.get(i);
         }
 
-        return  loader.loadToVao(verticesArr, texturesArr, indicesArr);
+        return  loader.loadToVao(verticesArr, texturesArr, normalsArr, indicesArr);
 
     }//end loadObjModel
 }
