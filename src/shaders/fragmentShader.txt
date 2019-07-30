@@ -31,7 +31,7 @@ void main(void)
 
     //calculating diffuse light
     float normalDotLight = dot(unitNormal, unitLightVector);
-    float brightness = max(normalDotLight, 0.0);
+    float brightness = max(normalDotLight, 0.1);
     vec3 diffuse = brightness * lightColor;
 
     out_Color = vec4(diffuse, 1.0) * texture(textureSampler, pass_textureCoords) + vec4(finalSpecular, 1.0);
