@@ -29,7 +29,9 @@ public class MainGameLoop
 
 
         RawModel model = ObjLoader.loadObjModel("dragon", loader);
-        ModelTexture texture = new ModelTexture(loader.loadTexture("stallTexture"));
+        ModelTexture texture = new ModelTexture(loader.loadTexture("white-texture"));
+        texture.setReflectivity(1);
+        texture.setShineDamper(10);
         TexturedModel texturedModel = new TexturedModel(model, texture);
         Entity entity = new Entity(
                 texturedModel,
