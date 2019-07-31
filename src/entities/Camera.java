@@ -6,8 +6,8 @@ import org.lwjgl.util.vector.Vector3f;
 public class Camera {
 
     //private////////////////////////////////////////////////////
-    private Vector3f position = new Vector3f(0, 0, 0);
-    private static final float SPEED = 0.02f;
+    private Vector3f position = new Vector3f(0, 1, 0);
+    private static final float SPEED = 0.05f;
     private float pitch;    //rotation about x axis
     private float yaw;      //rotation about y axis
     private float roll;     //rotation about z axis
@@ -30,13 +30,26 @@ public class Camera {
         if(Keyboard.isKeyDown(Keyboard.KEY_D)){
             position.x += SPEED;
         }
-
         if(Keyboard.isKeyDown(Keyboard.KEY_Q)){
-            roll -= SPEED;
+            roll -= 1;
         }
         if(Keyboard.isKeyDown(Keyboard.KEY_E)){
-            roll += SPEED;
+            roll += 1;
         }
+        if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)){
+            yaw += 5;
+        }
+        if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)){
+            yaw -= 5;
+        }
+        if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)){
+            position.y -= SPEED;
+        }
+        if(Keyboard.isKeyDown(Keyboard.KEY_UP)){
+            position.y += SPEED;
+        }
+
+
     }
 
 

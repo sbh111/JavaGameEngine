@@ -12,32 +12,12 @@ import toolbox.Maths;
 import java.util.List;
 import java.util.Map;
 
-public class Renderer {
+public class EntityRenderer {
 
 
     //private////////////////////////////////////////////////////////////////////
-    private static final float FOV = 70.f;
-    private static final float NEAR_PLANE = 0.1f;
-    private static final float FAR_PLANE = 1000f;
+
     private StaticShader shader;
-
-    private Matrix4f projectionMatrix;
-
-
-    private void createProjectionMatrix(){
-        float aspectRatio = (float) Display.getWidth() / (float)Display.getHeight();
-        float yScale = (1.f / (float)Math.tan(Math.toRadians(FOV / 2.f)));
-        float xScale = yScale / aspectRatio;
-        float frustrumLength = FAR_PLANE - NEAR_PLANE;
-
-        projectionMatrix = new Matrix4f();
-        projectionMatrix.m00 = xScale;
-        projectionMatrix.m11 =  yScale;
-        projectionMatrix.m22 = -((FAR_PLANE + NEAR_PLANE) / frustrumLength);
-        projectionMatrix.m23 = -1;
-        projectionMatrix.m32 = -((2 * NEAR_PLANE * FAR_PLANE) / frustrumLength);
-        projectionMatrix.m33 = 0;
-    }
 
     private void prepareTexturedModel(TexturedModel texturedModel){
         RawModel rawModel = texturedModel.getRawModel();
@@ -75,24 +55,12 @@ public class Renderer {
     }
 
     //public////////////////////////////////////////////////////////////////////
-    public Renderer(StaticShader shader){
+    public EntityRenderer(StaticShader shader, Matrix4f projectionMatrix){
         this.shader = shader;
-        GL11.glEnable(GL11.GL_CULL_FACE);
-        GL11.glCullFace(GL11.GL_BACK);
-        createProjectionMatrix();
         shader.start();
         shader.loadProjectionMatrix(projectionMatrix);
         shader.stop();
     }
-
-    public void prepare()
-    {
-        //called once every frame to prepare opengl
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-        GL11.glClearColor(.6f, .2f, .1f, 1);
-    }
-
 
     public void render(Map<TexturedModel, List<Entity>> entities){
             for(TexturedModel model : entities.keySet()){
