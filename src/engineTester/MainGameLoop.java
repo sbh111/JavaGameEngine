@@ -19,7 +19,7 @@ public class MainGameLoop
         DisplayManager.createDisplay();
         Loader loader = new Loader();
         RawModel model = ObjLoader.loadObjModel("dragon", loader);
-        ModelTexture texture = new ModelTexture(loader.loadTexture("linux-icon"));
+        ModelTexture texture = new ModelTexture(loader.loadTexture("rainbow"));
         texture.setReflectivity(.5f);
         texture.setShineDamper(5);
         TexturedModel texturedModel = new TexturedModel(model, texture);
@@ -31,9 +31,9 @@ public class MainGameLoop
                 30,
                 1
         );
-        Terrain terrain = new Terrain(0, 0, loader, new ModelTexture(loader.loadTexture("linux-icon")));
+        Terrain terrain = new Terrain(0, 0, loader, new ModelTexture(loader.loadTexture("rainbow")));
         Camera camera = new Camera();
-        Light light = new Light(new Vector3f(0, 0, 100), new Vector3f(1, 1, 1));
+        Light light = new Light(new Vector3f(20000,20000,2000), new Vector3f(1, 1, 1));
         MasterRenderer renderer = new MasterRenderer();
 
 
